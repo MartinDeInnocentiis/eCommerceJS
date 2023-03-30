@@ -1,1 +1,1 @@
-# eCommerceJS
+ECommerce interactivo usando JavaScript (sin aplicar estilización con CSS), en donde se aplican conocimientos de desarrollo de dicho lenguaje (Control de flujos, ciclos e iteraciones, funciones, arrays, objetos, DOM, programación orientada a eventos, librerías y manejo y normalización de datos con Storage y JSON).-
