@@ -12,7 +12,7 @@ const inputNombre = document.getElementById("nombre")
 const inputApellido = document.getElementById("apellido")
 const h2 = document.getElementById("h2")
 const div = document.getElementById("div")
-
+const advertencia=document.getElementById("advertencia")
 
 //CREO UNA CLASE "PRODUCT"
 class Product {
@@ -43,17 +43,29 @@ const productos = [
 const carrito = []
 
 
+formulario.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (formulario.nombre.value === '' || formulario.apellido.value === '') {
+      advertencia.textContent = '¡Por favor complete todos los campos!';
+    } else {
+      formulario.submit();
+    }
+  });
+
 //FUNCION QUE GUARDA LOS DATOS DEL USUARIO EN EL STORAGE, O CORROBORA SI YA SE ENCUENTRA
 function userInStorage() {
     formulario.onsubmit = (e) => { //CREO UN OBJETO FRENTE AL SIGUIENTE EVENTO: SUBMIT DEL FORMULARIO
         e.preventDefault()
+        if (formulario.nombre.value === '' || formulario.apellido.value === '') {
+            advertencia.textContent = 'Complete todos los campos para ingresar.';
+          } else {
         const usuario = {
             nombre: inputNombre.value,
             apellido: inputApellido.value,
         }
         localStorage.setItem("Usuario", JSON.stringify(usuario)) //GUARDO EL OBJETO CREADO EN EL STORAGE
         logeado(usuario); //UNA VEZ SETEADO EL OBJETO, EJECUTO LA FUNCION LOGEADO
-    }
+    }}
 
     const usuario = localStorage.getItem("Usuario")
     const infoUsuarioJSON = JSON.parse(usuario);
@@ -72,8 +84,8 @@ function logeado(u) {
         div.innerHTML += `<div class="card" style="width: 18rem;">
         <div class="card-body">
                 <h5 class="card-title">${prod.nombre}</h5>
-                <p class="card-text">${prod.precio}</p>
-                <button id=${prod.id} class="btn btn-warning">AGREGAR</button>  
+                <p class="card-text">$${prod.precio}</p>
+                <button id=${prod.id} class="btn btn-warning" style="background-color:#DDDA56; color:585846">AGREGAR</button>  
         </div>
         </div>`
     })
@@ -95,7 +107,7 @@ function deslogear() {
             title: '¿Deseas salir?',
             icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#79CD7E',
             cancelButtonColor: '#C5BEBC',
             confirmButtonText: 'Salir'
           }).then((result) => {
@@ -140,7 +152,7 @@ function finalizarCompra() {
     const botonFinalizar = document.createElement("button")
     botonFinalizar.id = "finalizar"
     botonFinalizar.innerText = "FINALIZAR COMPRA"
-    botonFinalizar.style = "background-color: green; color: white; position:absolute; left:50%; transform:translateX(-50%); margin-top:3rem;  padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;";
+    botonFinalizar.style = "background-color: #79CD7E; color: white; position:absolute; left:50%; transform:translateX(-50%); margin-top:3rem;  padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;";
     document.body.appendChild(botonFinalizar)
     const thead = document.getElementById("thead")
     const tbody = document.getElementById("tbody")
@@ -177,7 +189,7 @@ function volverATienda(){
     const volver = document.createElement("button") //CREO EL BOTON CORRESPONDIENTE
     volver.id = "volver";
     volver.innerText = "VOLVER";
-    volver.style = "background-color: green; color: white; position:absolute; left:50%; transform:translateX(-50%); margin-top:3rem;  padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;";
+    volver.style = "background-color: #79CD7E; color: white; position:absolute; left:50%; transform:translateX(-50%); margin-top:3rem;  padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;";
     document.body.appendChild(volver)
     volver.onclick = () => {
         Swal.fire({ //CREO LA SIGUIENTE ALERTA PARA EL EVENTO ONCLICK DEL BOTON CERRAR SESION
@@ -185,7 +197,7 @@ function volverATienda(){
             text: 'Se vaciarán los items que se encuentran dentro de tu carrito',
             icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#79CD7E',
             cancelButtonColor: '#C5BEBC',
             confirmButtonText: 'Atrás'
           }).then((result) => {

@@ -1,0 +1,34 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h2 {
+  color: #DDDA56;
+  font-weight: 400;
+  text-align: center;
+  font-size: 40px;
+  font-family: "Rubik Distressed", sans-serif;
+  align-content: space-between;
+  text-shadow: 1px 1px 1px rgb(57, 57, 57);
+}
+
+div {
+    margin: auto;
+    font-size: 20px;
+}
+
+.card{
+    margin-top: 20px;
+}
+
+.card-title, .card-text {
+    margin:auto;
+    background-color: aliceblue;
+}
+
+h5{
+    font-size:25px;
+}
