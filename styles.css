@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 * {
   margin: 0;
   padding: 0;
@@ -16,19 +17,26 @@ h2 {
 }
 
 div {
-    margin: auto;
-    font-size: 20px;
+  margin: auto;
+  font-size: 20px;
 }
 
-.card{
-    margin-top: 20px;
+
+.card {
+  margin-top: 20px;
 }
 
-.card-title, .card-text {
-    margin:auto;
-    background-color: aliceblue;
+.card-title,
+.card-text {
+  margin: auto;
+  background-color: aliceblue;
 }
 
-h5{
-    font-size:25px;
+h5 {
+  font-size: 15px;
+}
+
+.swal2-container.custom-top-end {
+  top: 0;
+  right: 0;
 }
