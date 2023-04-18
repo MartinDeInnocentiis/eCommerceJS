@@ -8,6 +8,7 @@
 
 h2 {
   color: #DDDA56;
+  margin-top: 30px;
   font-weight: 400;
   text-align: center;
   font-size: 40px;
@@ -21,7 +22,6 @@ div {
   font-size: 20px;
 }
 
-
 .card {
   margin-top: 20px;
 }
@@ -34,9 +34,4 @@ div {
 
 h5 {
   font-size: 15px;
-}
-
-.swal2-container.custom-top-end {
-  top: 0;
-  right: 0;
 }

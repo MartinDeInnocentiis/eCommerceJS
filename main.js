@@ -64,7 +64,7 @@ function getJuegos() {
 
             });
 
-            // CAPTURAMOS TODOS LOS BOTONES 'Agregar' DE CADA PRODUCTO, Y LE AGREGAMOS EL EventListener 'agregarProducto'
+            // CAPTURAMOS TODOS LOS BOTONES 'Agregar' DE CADA PRODUCTO, Y LE AGREGAMOS EL EventListener 'agregarProducto': ESTE ES EL EVENTO QUE TOMARÁ COMO PARÁMETRO (LUEGO) LA FUNCION AGREGAR PRODUCTO 
             const btns = document.getElementsByClassName("card-btn")
             for (let i = 0; i < btns.length; i++) {
                 btns[i].addEventListener("click", agregarProducto)
@@ -112,7 +112,6 @@ function logeado(u) {
     advertencia.remove();
     h2.innerText = `Bienvenido a la tienda, ${u.nombre} ${u.apellido.toUpperCase()}!`
     getJuegos()
-    //agregarProductos()
     deslogear()
     finalizarCompra()
 }
@@ -170,8 +169,7 @@ const agregarProducto = (e) => {
         title: 'Agregado al carrito',
         showConfirmButton: false,
         timer: 700
-      })
-
+    })
 }
 
 
@@ -188,6 +186,13 @@ function finalizarCompra() {
     const parrafoTotal = document.getElementById("precioTotal")
     //AL HACERLE CLICK; ELIMINO EL DIV QUE CONTIENE LOS PRODUCTOS; EL BOTON EN SI, Y CREO LA TABLA CON LOS PROD SELECCIONADOS
     botonFinalizar.onclick = () => {
+        if (carrito.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Parece que no has agregado ningún item al carrito',
+              })
+        } else {
         div.remove()
         botonFinalizar.remove()
         h2.innerText = `FINALIZAR LA COMPRA`
@@ -196,6 +201,8 @@ function finalizarCompra() {
             <th scope="col">Cantidad</th>
             <th scope="col">Precio</th>
         </tr>`
+        volverATienda()
+        pagar()
         let totalCompra = 0
         carrito.forEach(productos => {
             totalCompra += productos.cantidad * productos.precio
@@ -209,7 +216,40 @@ function finalizarCompra() {
         })
         parrafoTotal.innerText = `El precio total de tu compra es:  US$ ${totalFixed}`
         parrafoTotal.style.cssText = "color: #0B0F2E; font-size: 20px; font-weight: bold;"
-        volverATienda()
+        
+    }}
+}
+
+function pagar() {
+    //CREO EL BOTON PAGAR. SE ESTABLECE UN ID, TEXTO, ESTILO, y SE POSICIONA AL FINAL DEL CUERPO DEL DOCUMENTO.
+    const botonPagar = document.createElement("button")
+    botonPagar.id = "pagar"
+    botonPagar.innerText = "CONTINUAR"
+    botonPagar.style = "background-color: #79CD7E; color: white; position:absolute; right:1%; transform:translateX(-50%); margin-top:3rem;  padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;";
+    document.body.appendChild(botonPagar)
+    botonPagar.onclick = () => {
+        const inputOptions = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    '#ff0000': '<span style="font-size: 16px;">Crédito/Débito</span>',
+                    '#00ff00': '<span style="font-size: 16px;">MercadoPago</span>',
+                    '#0000ff': '<span style="font-size: 16px;">PayPal</span>'
+                })
+            }, 1000)
+        })
+        const { value: metodo } = Swal.fire({
+            title: 'Escoge un método de pago',
+            input: 'radio',
+            inputOptions: inputOptions,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Debes escoger algún método de pago'
+                }
+                else {
+                    Swal.fire({ html: `Muchas gracias. Aguarda y serás redireccionado` })
+                }
+            }
+        })
     }
 }
 
@@ -219,7 +259,7 @@ function volverATienda() {
     const volver = document.createElement("button") //CREO EL BOTON CORRESPONDIENTE
     volver.id = "volver";
     volver.innerText = "VOLVER";
-    volver.style = "background-color: #79CD7E; color: white; position:absolute; left:50%; transform:translateX(-50%); margin-top:3rem;  padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;";
+    volver.style = "background-color: #7b7b7b; color: white; position:absolute; left:10%; transform:translateX(-50%); margin-top:3rem;  padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;";
     document.body.appendChild(volver)
     volver.onclick = () => {
         Swal.fire({ //CREO LA SIGUIENTE ALERTA PARA EL EVENTO ONCLICK DEL BOTON CERRAR SESION
